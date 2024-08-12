@@ -85,7 +85,7 @@ SDL_Texture* load_texture(const char * texture_name)
 int init_sdl2()
 {
     window = SDL_CreateWindow("Platforer", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 1024, SDL_WINDOW_SHOWN);
-    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+    renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
     {
