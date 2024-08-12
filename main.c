@@ -34,6 +34,7 @@ enum tiles
 {
     TILE_wall,
     TILE_collectible,
+    TILE_death,
     TILE_max
 };
 
@@ -403,7 +404,7 @@ void update(const Uint8 * keys)
     if (!player.on_ground)
         player.y_velocity += 0.5;
     else
-        player.y_velocity = 0;
+        player.y_velocity = -1;
 
     if (player_check_tile_collision(COLL_up))
         player.y_velocity = 1;
@@ -436,6 +437,7 @@ int main()
     playerl_texture = load_texture("textures/playerl.png");
     tile_textures[TILE_wall] = load_texture("textures/wall.png");
     tile_textures[TILE_collectible] = load_texture("textures/coin.png");
+    tile_textures[TILE_death] = load_texture("textures/death.png");
 
     for (;;)
     {
@@ -464,6 +466,17 @@ int main()
                     case SDLK_F3:
                         load();
                         break;
+                    case SDLK_m:
+                    {
+
+                        int x, y;
+                        SDL_GetMouseState(&x, &y);
+                        List_append(world,
+                                    Tile_create(
+                                            (x+player.x-480)/64,
+                                            (y+player.y-480)/64,
+                                        TILE_death));
+                    }
                 }
             }
             if (event.type == SDL_MOUSEBUTTONDOWN)
